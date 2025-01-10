@@ -1,3 +1,10 @@
+Incorporated fix from https://github.com/daniilidis-group/neural_renderer/issues/144 on top of https://github.com/adambielski/neural_renderer
+
+Tested with Python 3.10.9, pytorch 2.5.1+cu124, on RTX 3090, working as of 2025-01-10
+
+To install: `pip install neural-renderer-pytorch@git+https://github.com/spacepxl/neural_renderer/`
+
+------------------------------------------------
 # Neural 3D Mesh Renderer (CVPR 2018)
 
 This repo contains a PyTorch implementation of the paper [Neural 3D Mesh Renderer](http://hiroharu-kato.com/projects_en/neural_renderer.html) by Hiroharu Kato, Yoshitaka Ushiku, and Tatsuya Harada.
