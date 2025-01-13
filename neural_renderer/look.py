@@ -27,7 +27,7 @@ def look(vertices, eye, direction=[0, 1, 0], up=None):
         eye = eye.to(device)
 
     if up is None:
-        up = torch.cuda.FloatTensor([0, 1, 0])
+        up = torch.FloatTensor([0, 1, 0]).to("cuda")
     if eye.ndimension() == 1:
         eye = eye[None, :]
     if direction.ndimension() == 1:
@@ -37,8 +37,8 @@ def look(vertices, eye, direction=[0, 1, 0], up=None):
 
     # create new axes
     z_axis = F.normalize(direction, eps=1e-5)
-    x_axis = F.normalize(torch.cross(up, z_axis), eps=1e-5)
-    y_axis = F.normalize(torch.cross(z_axis, x_axis), eps=1e-5)
+    x_axis = F.normalize(torch.cross(up, z_axis, dim=1), eps=1e-5)
+    y_axis = F.normalize(torch.cross(z_axis, x_axis, dim=1), eps=1e-5)
 
     # create rotation matrix: [bs, 3, 3]
     r = torch.cat((x_axis[:, None, :], y_axis[:, None, :], z_axis[:, None, :]), dim=1)

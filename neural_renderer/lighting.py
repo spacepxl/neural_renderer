@@ -42,7 +42,7 @@ def lighting(faces, textures, intensity_ambient=0.5, intensity_directional=0.5,
         v10 = faces[:, 0] - faces[:, 1]
         v12 = faces[:, 2] - faces[:, 1]
         # pytorch normalize divides by max(norm, eps) instead of (norm+eps) in chainer
-        normals = F.normalize(torch.cross(v10, v12), eps=1e-5)
+        normals = F.normalize(torch.cross(v10, v12, dim=1), eps=1e-5)
         normals = normals.reshape((bs, nf, 3))
 
         if direction.ndimension() == 2:

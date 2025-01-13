@@ -31,14 +31,14 @@ class Renderer(nn.Module):
             self.R = R
             self.t = t
             if isinstance(self.K, numpy.ndarray):
-                self.K = torch.cuda.FloatTensor(self.K)
+                self.K = torch.FloatTensor(self.K).to("cuda")
             if isinstance(self.R, numpy.ndarray):
-                self.R = torch.cuda.FloatTensor(self.R)
+                self.R = torch.FloatTensor(self.R).to("cuda")
             if isinstance(self.t, numpy.ndarray):
-                self.t = torch.cuda.FloatTensor(self.t)
+                self.t = torch.FloatTensor(self.t).to("cuda")
             self.dist_coeffs = dist_coeffs
             if dist_coeffs is None:
-                self.dist_coeffs = torch.cuda.FloatTensor([[0., 0., 0., 0., 0.]])
+                self.dist_coeffs = torch.FloatTensor([[0., 0., 0., 0., 0.]]).to("cuda")
             self.orig_size = orig_size
         elif self.camera_mode in ['look', 'look_at']:
             self.perspective = perspective
@@ -70,7 +70,7 @@ class Renderer(nn.Module):
         
         if mode is None:
             return self.render(vertices, faces, textures, K, R, t, dist_coeffs, orig_size)
-        elif mode is 'rgb':
+        elif mode == 'rgb':
             return self.render_rgb(vertices, faces, textures, K, R, t, dist_coeffs, orig_size)
         elif mode == 'silhouettes':
             return self.render_silhouettes(vertices, faces, K, R, t, dist_coeffs, orig_size)
